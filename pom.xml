@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-                        http://maven.apache.org/maven-v4_0_0.xsd">
-                        
-    <modelVersion>4.0.0</modelVersion>
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <groupId>net.sf.opensmus</groupId>
-    <artifactId>OpenSMUS</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-    
-    <name>OpenSMUS</name>
-    <description>OpenSMUS server</description>
-    <url>http://sourceforge.net/projects/opensmus/</url>
-    <inceptionYear>2009</inceptionYear>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.sf.opensmus</groupId>
+	<artifactId>OpenSMUS</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
+
+	<name>OpenSMUS</name>
+	<description>OpenSMUS server</description>
+	<url>https://github.com/markhughes/opensmus/</url>
+	<inceptionYear>2009</inceptionYear>
 
 	<developers>
 		<developer>
@@ -50,26 +49,26 @@
 			<distribution>manual</distribution>
 		</license>
 		<license>
-      		<name>HSQLDB License</name>
-      		<url>http://hsqldb.org/web/hsqlLicense.html</url>
-      		<distribution>repo</distribution>
-    	</license>
+			<name>HSQLDB License</name>
+			<url>http://hsqldb.org/web/hsqlLicense.html</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:https://opensmus.svn.sourceforge.net/svnroot/opensmus</connection>
-		<developerConnection>scm:svn:https://opensmus.svn.sourceforge.net/svnroot/opensmus</developerConnection>
-		<url>http://opensmus.svn.sourceforge.net/viewvc/opensmus/</url>
+		<connection>scm:git:git://github.com/markhughes/opensmus.git</connection>
+		<developerConnection>scm:git:ssh://github.com/markhughes/opensmus.git</developerConnection>
+		<url>https://github.com/markhughes/opensmus</url>
 	</scm>
 
-    <properties>
-        <jre.version>1.5</jre.version>
-        <hsqldb.version>1.8.0.10</hsqldb.version>
-        <netty.version>3.2.1.Final</netty.version>
-        <junit.version>4.7</junit.version>
-    </properties>
-    <prerequisites>
-		<maven>2.0.0</maven>
+	<properties>
+		<jre.version>1.8</jre.version>
+		<hsqldb.version>1.8.0.10</hsqldb.version>
+		<netty.version>3.2.1.Final</netty.version>
+		<junit.version>4.7</junit.version>
+	</properties>
+	<prerequisites>
+		<maven>3.0</maven>
 	</prerequisites>
 
 	<dependencies>
@@ -80,14 +79,14 @@
 			<version>${hsqldb.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<!-- NIO -->
 		<dependency>
 			<groupId>org.jboss.netty</groupId>
 			<artifactId>netty</artifactId>
 			<version>${netty.version}</version>
 		</dependency>
-		
+
 		<!-- Test support -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -100,58 +99,59 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testOutputDirectory>src/test/java</testOutputDirectory>
-		
+
 		<plugins>
 			<!-- Set Java Runtime and compiler settings -->
-    		<plugin>
-    			<groupId>org.apache.maven.plugins</groupId>
-    			<artifactId>maven-compiler-plugin</artifactId>
-    			<configuration>
-    				<source>${jre.version}</source>
-    				<target>${jre.version}</target>
-    			</configuration>
-    		</plugin>
-    		
-		<plugin>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-surefire-plugin</artifactId>
-        	<version>2.4.2</version>
-        	<configuration>
-          		<skipTests>true</skipTests>
-        	</configuration>
-      	</plugin>
-			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>${jre.version}</source>
+					<target>${jre.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
 	<reporting>
 		<plugins>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 			</plugin>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</reporting>
 
-    <repositories>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 
 </project>
