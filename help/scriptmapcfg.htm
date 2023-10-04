@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Scriptmap configuration file</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<table width="90%" border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td height="36" colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="images/logo2_icone.gif" alt="Nebulae MutiUser Server" width="36" height="36"></td>
+    <td valign="middle" align="left" class="title"><a href="index.htm">OPENSMUS HELP</a>: <a href="serversidescript.htm"><span class="colornebulae">SERVER SIDE SCRIPTING</span></a></td>
+    <td width="36" rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top" align="left"><p class="colornebulae"><span class="title">SAMPLE SCRIPTMAP CONFIGURATION FILE</span></p>
+        <p>&nbsp;</p>
+        <textarea name="textarea" readonly="readonly" class="Script">#---------------------------------------------------------
+#-- OpenSMUS Script Map Configuration file --
+#-- Version 1
+#---------------------------------------------------------
+#-- Lines starting with a poud sign # are comments
+#-- To enable a configuration directive uncomment the line
+#-- and edit the value
+#---------------------------------------------------------
+#
+#-- This file configures the mapping between movie names and
+#-- server side script classes. All movie names should be listed
+#-- in uppercase, but the script class name is case-sensitive. 
+
+#-- Server side script classes must be available to the Java VM
+#-- in order to be loaded. Please make sure their paths are listed
+#-- in the classpath argument when OpenSMUS is started.
+
+#-- General format:
+#-- MOVIENAME = ServerSideScriptClass
+
+#-- The DEFAULT key can be used to specify a default ServerSideScript
+#-- object to be loaded by all movies with no matching script classes.
+
+#-- Examples:
+#CHAT = ChatBotScript
+#LOBBY = LobbyClass
+#DEFAULT = ADefaultClassForAllMovies</textarea>
+        <p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

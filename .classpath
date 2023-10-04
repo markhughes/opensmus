@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="distrib/dependencies/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar"/>
+	<classpathentry kind="lib" path="distrib/dependencies/junit/junit/4.7/junit-4.7.jar"/>
+	<classpathentry kind="lib" path="distrib/dependencies/org/jboss/netty/netty/3.1.5.GA/netty-3.1.5.GA.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+. /etc/rc.common
+
+##
+# Start OpenSMUS
+##
+
+if [ "${OPENSMUS:=-YES-}" = "-YES-" ]; then
+
+    ConsoleMessage "Starting OpenSMUS"
+
+    cd /Applications/OpenSMUS
+    java -cp OpenSMUS.jar:hsqldb.jar:netty.jar:/Applications/OpenSMUS net.sf.opensmus.OpenSMUS &
+
+fi

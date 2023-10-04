@@ -1,0 +1,188 @@
+<html>
+<head>
+<title>OpenSMUS Commands</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style type="text/css">
+<!--
+p {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+-->
+</style>
+</head>
+<body>
+<table width="90%" border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td height="36" colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="images/logo2_icone.gif" alt="Nebulae MutiUser Server" width="36" height="36"></td>
+    <td valign="middle" align="left" class="title"><a href="index.htm">OPENSMUS HELP</a>: <span class="colornebulae">OPENSMUS 
+      COMMAND LIST</span></td>
+    <td width="36" rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top" align="left"><p>OpenSMUS also implements extended commands not available in Macromedia's Shockwave MultiUser server. Most are used for server administration purposes, but there are a few extensions to the DBObject commands that were planned to make the life of the multiuser developer easier. These commands will not produce an error when used with the Shockwave MultiUser server but you should probably check the response to &quot;system.server.getVersion&quot; to make sure you are connected to a OpenSMUS server before using them.</p>
+      <p>&nbsp;</p>
+      <p class="bold">OPENSMUS SQL COMMANDS</p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.SQL.executeQuery</p>
+      <p><span class="bold">Description:</span> Executes an SQL query through OpenSMUS's SQL gateway. OpenSMUS constructs a prepared SQL statement using the query and Lingo values supplied, which are automatically mapped to the corresponding SQL data types. This avoids the problem of quoting strings, a common issue in all SQL queries. For simple queries (containing no ? elements) the #values parameter is an empty list.</p>
+      <p><span class="bold">Message recipient:</span> system.SQL.executeQuery</p>
+      <p><span class="bold">Content parameters:</span> [#sql:&quot;sql query &quot;,#values:[]]</p>
+      <p><span class="bold">Lingo example: </span><span class="example">sendNetMessage(&#147;system.SQL.executeQuery&#148;,&#148;anysubject&#148;, [#sql:&quot;SELECT NAME,PHONE FROM ADDRESSES WHERE STREET=? AND NUMBER&gt;?&quot;,#values:[&quot;California&quot;,1000]])</span></p>      
+      <p><span class="bold">Server reply content:</span> [[&quot;John Taylor&quot;,&quot;5551234&quot;], [&quot;Anthony Fields&quot;,&quot;5551432&quot;]]</p>
+      <p><span class="bold">Remarks:</span> OpenSMUS will return each matching row as a separate list inside a master list, with the values converted from SQL types to the appropriate Lingo types.</p>
+      <p>&nbsp;</p>
+      <p class="colornebulae">system.SQL.executeUpdate</p>
+      <p><span class="bold">Description:</span> Executes an SQL update through OpenSMUS's SQL gateway. An SQL update is an instruction that does not return a selection (INSERT INTO, UPDATE, CREATE, etc.) OpenSMUS constructs a prepared SQL statement using the query and Lingo values supplied, which are automatically mapped to the corresponding SQL data types. This avoids the problem of quoting strings, a common issue in all SQL queries. For simple queries (containing no ? elements) the #values parameter is an empty list.</p>      
+      <p><span class="bold">Message recipient:</span> system.SQL.executeUpdate</p>
+      <p><span class="bold">Content parameters:</span> [#sql:&quot;sql query &quot;,#values:[]]</p>
+      <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.SQL.executeUpdate&#148;,&#148;anysubject&#148;, [#sql:&quot;UPDATE ADDRESSES SET PHONE=? WHERE NAME=?&quot;,[&quot;5551234&quot;,&quot;John Taylor&quot;]])</span></p>
+      <p><span class="bold">Server reply content:</span> &quot;UpdateOK&quot;, or a MUS error message</p>
+      <p><span class="bold">Remarks:</span> None</p>
+      <p>&nbsp;</p>
+      <p class="colornebulae">system.SQL.connect</p>
+      <p><span class="bold">Description:</span> Connects OpenSMUS to an SQL database. This command is usually not necessary, since OpenSMUS connects automatically to the default SQL database when the server starts, using the SQL directive in the OpenSMUS.cfg file.</p>
+      <p class="margin">Each OpenSMUS server can only be connected to one SQL database at any given time, so this command will fail if a connection is already established. The parameters correspond to JDBC parameters for a database connection.</p>
+	  <p><span class="bold">Message recipient:</span> system.SQL.connect</p>
+	  <p><span class="bold">Content parameters:</span> [#userid:"name",#password:"",#driver:"org.hsqldb.jdbcDriver", #url:"jdbc:hsqldb:OpenSMUSSQL"]</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.SQL.connect&#148;,&#148;anysubject&#148;, [#userid:"sa",#password:"",#driver:"org.hsqldb.jdbcDriver", #url:"jdbc:hsqldb:OpenSMUSSQL"])</span></p>
+	  <p><span class="bold">Server reply content:</span> &quot;Connected&quot;, or a MUS error message.</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+	  <p class="colornebulae">system.SQL.disconnect</p>
+	  <p><span class="bold">Description:</span> Disconnects OpenSMUS from an SQL database. This command is usually not necessary, since OpenSMUS manages the default SQL connection automatically.</p>
+	  <p><span class="bold">Message recipient:</span> system.SQL.disconnect</p>
+	  <p><span class="bold">Content parameters:</span> none</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.SQL.disconnect&#148;,&#148;anysubject&#148;, void)</span></p>
+	  <p><span class="bold">Server reply content:</span> void</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>	  
+	  <p class="bold"><span class="bold">OPENSMUS EXTENSIONS TO THE SYSTEM.SERVER COMMAND SET </span></p>
+      <p>&nbsp;</p>
+      <p class="colornebulae">system.server.restart</p>
+	  <p><span class="bold">Description:</span> This command will restart the OpenSMUS instance remotely. The actual java process running on the host machine will not be destroyed, however. When this command is received all users will be disconnected and a new server instance will be spawned. All configuration files will be re-scanned when the server restarts. The server restart process takes an average of 15 seconds to complete, and all database files are also packed and reopened.</p>
+      <p><span class="bold">Message recipient:</span> system.server.restart</p>
+      <p><span class="bold">Content parameters:</span> None</p>
+      <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.server.restart&#148;,&#148;anysubject&#148;,void)</span></p>
+      <p><span class="bold">Server reply content:</span> &quot;ServerRestarted&quot;</p>
+      <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+      <p>&nbsp;</p>
+      <p class="colornebulae">system.server.disable</p>
+	  <p><span class="bold">Description:</span> Prevents any new connections to the server. Current user connections will be unaffected. It is important to understand that even administrative users will NOT be able to connect to a disabled server, so if the administrative connection that issued the command is lost you will need to kill and restart the server process from the shell. This command can be reversed with the system.server.enable command, or with a server restart or reboot.</p>
+      <p><span class="bold">Message recipient:</span> system.server.disable</p>
+      <p><span class="bold">Content parameters:</span> None</p>
+      <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.server.disable&#148;,&#148;anysubject&#148;,void)</span></p>
+      <p><span class="bold">Server reply content:</span> &quot;ServerDisabled&quot;</p>
+      <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level.</p>
+      <p>&nbsp; </p>
+      <p class="colornebulae">system.server.enable</p>
+	  <p><span class="bold">Description:</span> Reverts the effects of system.server.disable, and allows new connections to the server.</p>
+	  <p><span class="bold">Message recipient:</span> system.server.enable</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.server.enable&#148;,&#148;anysubject&#148;,void)</span></p>
+	  <p><span class="bold">Server reply content:</span> &quot;ServerEnabled&quot;</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level.</p>
+	  <p>&nbsp; </p>
+      <p class="colornebulae">system.server.disconnectAll</p>
+	  <p><span class="bold">Description:</span> Disconnects all users from the server, including the administrative user that issued the command. This will cause all server movies and groups to be destroyed.</p>
+	  <p><span class="bold">Message recipient:</span> system.server.disconnectAll</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.server.disconnectAll&#148;,&#148;anysubject&#148;,void)</span></p>
+	  <p><span class="bold">Server reply content:</span> &quot;DisconnectAll&quot;</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level.</p>
+	  <p>&nbsp; </p>
+      <p class="colornebulae">system.server.sendEmail</p>
+	  <p><span class="bold">Description:</span> Sends an email using the OpenSMUS server and the specified SMTP host.</p>
+	  <p><span class="bold">Message recipient:</span> system.server.sendEmail</p>
+	  <p><span class="bold">Content parameters:</span> [#sender:"sender@domain.com", #recpt:"email@domain.com", #subject:"Message subject", #smtphost:"smtphostname.com", #data:["Line 1 of the message","Line 2 of the message","Line 3, etc"]]</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.server.sendEmail&#148;,&#148;anysubject&#148;,[#sender:"admin@yourdomain.com", #recpt:"email@youruser.com", #subject:"Testing email", #smtphost:"yourdomain.com", #data:["This is a test message.","There is no need to reply"])</span></p>
+	  <p><span class="bold">Server reply content:</span> &quot;EmailAccepted&quot;</p>
+	  <p><span class="bold">Remarks:</span> None</p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	  <p class="bold"><span class="bold">OPENSMUS EXTENSIONS TO THE SYSTEM.DBADMIN COMMAND SET </span></p>
+      <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.ban</p>
+	  <p><span class="bold">Description:</span> Bans an ip address or userid from connecting to the server for a specific time period. This command does not disconnect the user if it is currently connected (see system.user.delete.) The banned entry is stored in the server database and is preserved even if the server is restarted or rebooted. This commands expects a property list in the content portion of the message with the attributes #user and #timeToBan. #user is a string representing an ip address or an username, and #timeToBan is the duration of the banned entry in the server, in seconds.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.ban</p>
+	  <p><span class="bold">Content parameters:</span> [#user:&quot;ip address or username&quot;, #timeToBan: howManySeconds]</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.ban&#148;,&#148;anysubject&#148;,[#user:&quot;200.215.123.12&quot;, #timeToBan: 3600); sendNetMessage(&#147;system.DBAdmin.ban&#148;,&#148;anysubject&#148;,[#user:&quot;MrX&quot;, #timeToBan: 604800)</span></p>
+	  <p><span class="bold">Server reply content:</span> [#user:&quot;200.215.123.12&quot;]</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level.</p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.revokeBan</p>
+	  <p><span class="bold">Description:</span> Erases a banned entry from the server database. This commands expects a property list in the content portion of the message with the attribute #user, representing an ip address or an username.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.revokeBan</p>
+	  <p><span class="bold">Content parameters:</span> [#user:&quot;ip address or username&quot;]</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.revokeBan&#148;,&#148;anysubject&#148;,[#user:&quot;200.215.123.12&quot;); sendNetMessage(&#147;system.DBAdmin.revokeBan&#148;,&#148;anysubject&#148;,[#user:&quot;MrX&quot;)</span></p>
+	  <p><span class="bold">Server reply content:</span> [#user:&quot;200.215.123.12&quot;]</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.getBanned</p>
+	  <p><span class="bold">Description:</span> Retrieves a list of banned user entries in the server database, including the expiration date for the ban. The list is returned as a list of property lists, each item corresponding to one banned user entry.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.getBanned</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.getBanned&#148;,&#148;anysubject&#148;,void)</span></p>
+	  <p><span class="bold">Server reply content:</span> [[#user:&quot;200.215.123.12&quot;,#expires:&quot;2001/11/21 14:34:33&quot;],[#user:&quot;MrX&quot;,#expires:&quot;2001/11/28 14:54:45&quot;]]</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. The banned table is only checked for expired entries when the server is started or restarted, for performance reasons. The list returned by this command may contain expired entries, but these will be expurged automatically if a banned user or ip address tries to connect to the server after the expiration period has passed. </p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.getApplicationNames</p>
+	  <p><span class="bold">Description:</span> Retrieves a list of application names for all DBApplication objects in the server database.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.getApplicationNames</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.getApplicationNames&#148;,&#148;anysubject&#148;,void)</span></p>	  <p><span class="bold">Server reply content:</span> [&quot;lobby&quot;,&quot;seabattle&quot;]</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.getApplicationCount</p>
+	  <p><span class="bold">Description:</span> Retrieves the number of DBApplication objects in the server database.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.getApplicationCount</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.getApplicationCount&#148;,&#148;anysubject&#148;,void)</span></p>
+	  <p><span class="bold">Server reply content:</span> 3</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.getAttributeNames</p>
+	  <p><span class="bold">Description:</span> Retrieves a list with the names of all attributes declared in the server database, including the default ones.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.getAttributeNames</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.getAttributeNames&#148;,&#148;anysubject&#148;,void)</span></p>
+	  <p><span class="bold">Server reply content:</span> [&quot;CREATIONTIME&quot;,&quot;STATUS&quot;,&quot;USERLEVEL&quot;, &quot;DESCRIPTION&quot;,&quot;PASSWORD&quot;,&quot;LASTUPDATETIME&quot;,&quot;LASTLOGINTIME&quot;]</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.getAttributeCount</p>
+	  <p><span class="bold">Description:</span> Retrieves the number of attributes declared in the server database, including the default ones.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.getAttributeCount</p>
+	  <p><span class="bold">Content parameters:</span> None</p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.getAttributeCount&#148;,&#148;anysubject&#148;,void)</span></p>
+	  <p><span class="bold">Server reply content:</span> 7</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+      <p class="colornebulae">system.DBAdmin.deleteApplicationData (#all format)</p>
+	  <p><span class="bold">Description:</span> This command is an addition to the standard system.DBAdmin.deleteApplicationData command, and it is included to make it easier for a developer to delete all ApplicationData objects created for a given application. The standard command supplied by Shockwave MultiUser Server requires a #text, #number or #range parameter that is used to match application data that is going to be deleted. Using the #all parameter an OpenSMUSserver will be able to match and delete all ApplicationData objects created for the specified application.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBAdmin.deleteApplicationData</p>
+	  <p><span class="bold">Content parameters:</span> [#application:&quot;applicationname&quot;,#attribute:#creationtime, #all:void] </p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBAdmin.deleteApplicationData&#148;,&#148;anysubject&#148;, [#application:&quot;seabattle&quot;,#attribute:#creationtime, #all:void])</span></p>
+	  <p><span class="bold">Server reply content:</span> Matches the command message content</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level. </p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	  <p class="bold"><span class="bold">OPENSMUS EXTENSIONS TO THE SYSTEM.DBAPPLICATION COMMAND SET</span></p>
+      <p>&nbsp;</p>
+      <p class="colornebulae">system.DBApplication.getApplicationData (#all format) </p>
+	  <p><span class="bold">Description:</span> This command is an addition to the standard system.DBApplication.getApplicationData command, and it is included to make it easier for a developer to retrieve all ApplicationData objects created for a given application. The standard command supplied by Shockwave MultiUser Server requires a #text, #number or #range parameter that is used to match application data that is going to be returned. Using the #all parameter an OpenSMUS server will be able to match and retrieve all ApplicationData objects created for the specified application.</p>
+	  <p><span class="bold">Message recipient:</span> system.DBApplication.getApplicationData</p>
+	  <p><span class="bold">Content parameters:</span> [#application:&quot;applicationname&quot;,#attribute:#creationtime, #all:void] </p>
+	  <p><span class="bold">Lingo example:</span> <span class="example">sendNetMessage(&#147;system.DBApplication.getApplicationData&#148;,&#148;anysubject&#148;, [#application:&quot;seabattle&quot;,#attribute:#creationtime, #all:void])</span></p>
+	  <p><span class="bold">Server reply content:</span> [[#shipname:&quot;Cruise&quot;,#shipcolor:&quot;Blue&quot;], [#shipname:&quot;Sub&quot;,#shipcolor:&quot;Green&quot;]]</p>
+	  <p><span class="bold">Remarks:</span> By default this command can only be issued by users connected with administrative access level.</p>
+    <p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

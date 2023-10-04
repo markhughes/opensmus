@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>OpenSMUS Changes</title>
+    <author email="j.mayrbaeurl@yahoo.de">Juergen Mayrbaeurl</author>
+  </properties>
+  <body>
+  	<release version="2.0.0" date="2009-11-01" description="Netty based OpenSMUS release">
+  		<action dev="jm" type="fix" date="2009-10-30">
+  			net.sf.opensmus.MUSServer.killServer() no longer throws ConcurrentModificationException
+  		</action>
+    	<action dev="jm" type="add" date="2009-10-29">
+    		Configuration file can be read from any location now by using system property 'OpenSMUSConfigFile'
+    	</action>
+  	</release>
+  </body>
+</document>

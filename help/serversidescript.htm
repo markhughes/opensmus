@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Server Side Scripting</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<table width="90%" border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td height="36" colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="images/logo2_icone.gif" alt="Nebulae MutiUser Server" width="36" height="36"></td>
+    <td valign="middle" align="left" class="title"><a href="index.htm">OPENSMUS HELP</a>: <span class="colornebulae">SERVER SIDE SCRIPTING</span></td>
+    <td width="36" rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top" align="left"><p>OpenSMUS  introduces a powerful new feature for Shockwave developers: Java server side scripting. This opens OpenSMUS for deep customization, allowing the developer to extend the server in almost any way. Server side scripts can implement connection to databases, web servers, mail programs and almost any piece of software that can be accessed by a java application. </p>
+      <p class="margin">Server side scripts are an advanced feature in OpenSMUS. A good understanding of the Java language is absolutely required, and developers need access to a Java development environment in order to test and compile their server side script classes. Server side scripts are actually compiled Java .class files, mapped to OpenSMUS movies using the scriptmap.cfg file. </p>
+      <p>&nbsp;</p>
+      <p class="marginbold"><a href="scriptmapcfg.htm">Scriptmap.cfg file configuration </a></p>
+      <p>&nbsp;</p>
+      <p>A server side script class is loaded by OpenSMUS when a movie is created on the server and it matches the name of a movie configured in the scriptmap table. Each server side script is a compiled Java Class that extends the ServerSideScript class, defined in the OpenSMUS server side scripting API. The methods inherited from the ServerSideScript class allow the script to be called by OpenSMUS when a message with the subject &quot;system.script.*&quot; is received by the server. ServerSideScripts also implement the ServerUser interface, so they can join movies and groups and send messages as if they were an user connected to the OpenSMUS server.</p>
+      <p class="margin">The OpenSMUS server side scripting API is documented in javadoc format, in the DOC subdirectory at the SVN server for the project. Classes are provided for conversion between Java types and native Lingo values (LValues), and to encapsulate the Shockwave MultiUser Server message protocol. An effort has been made to provide interfaces that match the Server Object Model defined by Macromedia for SMUS 3. Java developers should probably start by examining the ServerObject, ServerMovie, ServerGroup and ServerUser interfaces.</p>
+      <p class="margin"> OpenSMUS scripting API also exposes interfaces to the ServerUserDatabase and SQLGateway objects used by the server, so scripts can interact directly with databases and return results to connected users as native Lingo types, represented by LValues in the OpenSMUS API. Almost all aspects of the server can be accessed by a ServerSideScript class, including every movie, group or user connected. </p>
+    <p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

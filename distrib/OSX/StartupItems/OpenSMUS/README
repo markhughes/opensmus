@@ -1,0 +1,5 @@
+Put these scripts in the startup system /Library/StartupItems folder
+to start and stop OpenSMUS automatically when the system is initiated.
+
+NOTICE: It might be necessary to change the permissions of the OpenSMUS script
+to be executable, depending on how you obtained these files.

@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Installing on Linux</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<table width="90%" border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td height="36" colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="images/logo2_icone.gif" alt="Nebulae MutiUser Server" width="36" height="36"></td>
+    <td valign="middle" align="left" class="title"><a href="index.htm">OPENSMUS HELP</a>: <a href="installing.htm"><span class="colornebulae">INSTALLING THE SERVER</span></a></td>
+    <td width="36" rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top" align="left"><p class="colornebulae"><span class="title">INSTALLING ON LINUX/UNIX/SOLARIS/MACOSX </span></p>
+        <p>&nbsp;</p>
+        <p>OpenSMUS has been installed and tested in different distributions of Linux (RedHat, Slackware and Debian), Solaris and other *nix systems, including MacOSX. We recommend using the the official Java VM from Sun if possible. </p>
+      <p class="margin">The OpenSMUS server is distributed in a .tar file available at the FILES section of the OpenSMUS project site. The files needed to run the server can be found in the DISTRIB subdirectory. They are: <span class="bold">OpenSMUS.jar, hsqldb.jar, OpenSMUS.cfg, ScriptMap.cfg and Movie.cfg</span>. This guide assumes you copy them to the /usr/local/opensmus directory, but you can keep them anywhere on your system. You can create a new user to run the server or run it as a root or any unprivileged account: Java applications rely on the Java VM to provide security to the whole system. The only restriction is that the user running the server must have access rights to the directory where the server files are installed, since it will be necessary to create database files and a server log. </p>
+      <p class="margin">Before the server runs for the first time it is recommended that you create at least one administrative user in the server database, to allow access to server administration commands in the future. This can be accomplished by editing the &quot;CreateUser&quot; directive in the OpenSMUS.cfg file:</p>
+      <p>&nbsp;</p>
+        <p class="marginbold">#CreateUser = admin,pass,100</p>
+        <p>&nbsp;</p>
+        <p>Uncomment the line by removing the pound sign at the beginning, and customize the values for username and password. This command will create a user names &quot;admin&quot;, with password &quot;pass&quot; and userlevel 100 the first time the server is started. Please note that while the server can operate without a server administrator account you will not be able to shutdown it remotely until an administrative user is added. You can use pico or other text editor to edit the configuration file.</p>
+        <p class="margin">We recommend running the official Java VM from Sun. You can issue the following command to verify that the installation is functional:</p>
+        <p>&nbsp;</p>
+        <p class="marginbold">java -version</p>
+        <p>&nbsp;</p>
+        <p>Version 1.6 of Sun's VM will return the following output:</p>
+        <p>&nbsp;</p>
+      <p class="marginbold">java -version<br>
+      <p class="marginbold"> java version &quot;1.6.0&quot;<br>
+      <p class="marginbold"> Java(TM) SE Runtime Environment (build 1.6.0-b105)<br>
+      <p class="marginbold">Java HotSpot(TM) Client VM (build 1.6.0-b105, mixed mode, sharing)</p>
+      <p>&nbsp;</p>
+        <p>To locate the path to java on your system, use:</p>
+        <p>&nbsp;</p>
+        <p class="marginbold">which java</p>
+        <p>&nbsp;</p>
+        <p>You can then start the OpenSMUS server and put it to run in the background with the following command:</p>
+      <p>&nbsp;</p>
+        <p class="marginbold">/usr/java/jdk/bin/java -cp 
+            OpenSMUS.jar:hsqldb.jar net.sf.opensmus.OpenSMUS &amp;</p>
+        <p>&nbsp;</p>
+        <p>Please remember to run the command from the directory where OpenSMUS is installed. You can also use a shell script to start the server. This version adds the OpenSMUS directory to the classpath, so you can put server side script classes in the same directory of OpenSMUS (/usr/local/opensmus) in order to have them loaded by your movies. If you need to use a JDBC driver (for PostgreSQL connection for example) you should also remember to list its location on the classpath:</p>
+        <p>&nbsp;</p>
+        <p class="marginbold">#!/bin/csh -f</p>
+        <p class="marginbold"> cd /usr/local/opensmus</p>
+        <p class="marginbold"> unlimit</p>
+        <p class="marginbold">/usr/java/jdk/bin/java  -Dfile.encoding=ISO-8859-1 -cp OpenSMUS.jar:hsqldb.jar:/usr/local/opensmus:postgresql.jar 
+            net.sf.opensmus.OpenSMUS &amp; </p>
+        <p>&nbsp;</p>
+        <p>The &quot;unlimit&quot; command is useful on some distributions, where there is a limit on the number of file descriptors available per user. If you need to support more than 1024 simultaneous connections it may be necessary to raise the number of file descriptors available to your user session: please consult your Linux distributor for more assistance on the commands appropriated for your specific distribution.</p>
+        <p class="margin">For your convenience OpenSMUS can be restarted or shutdown 
+        remotely by an user connected as an administrator (userlevel 100), using 
+        the commands &quot;system.server.restart&quot; and &quot;system.server.shutdown&quot;. 
+        The OpenSMUS Administrator tool includes these commands and is available 
+        at the download section of OpenSMUS web site. It can be used for server 
+        administration using any browser with the current Shockwave plugin.</p>
+        <p class="margin">If you need to stop a server you can also find its process id from the 
+        shell:</p>
+        <p>&nbsp;</p>
+        <p class="marginbold">ps -auxww</p>
+        <p>&nbsp;</p>
+        <p>This will show the process IDs for all running applications. Locate the OpenSMUS server process (it contains the java application name) and kill it with:</p>
+        <p>&nbsp;</p>
+        <p class="marginbold">kill pidnumber</p>
+        <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top" align="left">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>
