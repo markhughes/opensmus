@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Installing on Windows</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<table width="90%" border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td height="36" colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="images/logo2_icone.gif" alt="Nebulae MutiUser Server" width="36" height="36"></td>
+    <td valign="middle" align="left" class="title"><a href="index.htm">OPENSMUS  HELP</a>: <a href="installing.htm"><span class="colornebulae">INSTALLING THE SERVER</span></a></td>
+    <td width="36" rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top" align="left"><p class="colornebulae"><span class="title">INSTALLING ON WINDOWS </span></p>
+        <p>&nbsp;</p>
+        <p>Most developers will use Macromedia's Shockwave MultiUser Server in Windows servers. However it is also possible to run OpenSMUS on Windows system, for deployment or testing purposes. We recommend using the latest Sun VM available at <a href="http://www.javasoft.com">Sun's Java website</a>. Windows 2000/XP a powerful platforms for running Java applications, and can handle a large number of users.</p>
+      <p class="margin">OpenSMUS is distributed in a .tar file available at the  FILES section of the OpenSMUS project site. <a href="http://www.winzip.com">Winzip</a> can decompress tar files. The files needed to run the server can be found in the DISTRIB subdirectory. They are: <span class="bold">OpenSMUS.jar, hsqldb.jar, OpenSMUS.cfg, ScriptMap.cfg and Movie.cfg</span>. This guide assumes you copy them to the C:\OpenSMUS directory, but you can keep them anywhere on your system.</p>
+      <p class="margin">Before the server runs for the first time it is recommended that you create at least one administrative user in the server database, to allow access to server administration commands in the future. This can be accomplished by editing the &quot;CreateUser&quot; directive in the OpenSMUS.cfg file:</p>
+      <p>&nbsp;</p>
+        <p class="marginbold">#CreateUser = admin,pass,100</p>
+        <p>&nbsp;</p>
+        <p>Uncomment the line by removing the pound sign at the beginning, and customize the values for username and password. This command will create a user names &quot;admin&quot;, with password &quot;pass&quot; and userlevel 100 the first time the server is started. Please note that while the server can operate without a server administrator account you will not be able to shutdown it remotely until an administrative user is added. You can use Notepad or other text editor to edit the configuration file.</p>
+        <p class="margin">From the command prompt you can issue the following command to verify that the Java VM installation is functional:</p>
+        <p>&nbsp;</p>
+        <p class="marginbold">java -version </p>
+        <p>&nbsp;</p>
+        <p>The result will be something like:</p>
+        <p><br>
+</p>
+      <p class="marginbold"> java version &quot;1.6.0&quot;<br>
+        <p class="marginbold"> Java(TM) SE Runtime Environment (build 1.6.0-b105)<br>
+        <p class="marginbold">Java HotSpot(TM) Client VM (build 1.6.0-b105, mixed mode, sharing)</p>
+      <p>&nbsp;</p>
+        <p>You can start the OpenSMUS server with the following commands. Don't forget to add the OpenSMUS installation directory to the classpath if you want to load server side script classes, and put them in the same directory of OpenSMUS:</p>
+      <p>&nbsp;</p>
+        <p class="marginbold">cd C:\OpenSMUS</p>
+        <p class="marginbold"> java -cp OpenSMUS.jar;hsqldb.jar;C:\OpenSMUS net.sf.opensmus.OpenSMUS</p>        
+      <p>&nbsp;</p>
+        <p>Please remember to run the command from the directory where OpenSMUS is installed.</p>
+      <p class="margin">For your convenience OpenSMUS can be restarted or shutdown remotely by an user connected as an administrator (userlevel 100), using the commands &quot;system.server.restart&quot; and &quot;system.server.shutdown&quot;. The OpenSMUS Administrator tool includes these commands and is available at the download section of the project site. It can be used for server administration using any browser with the current Shockwave plugin.</p>
+      <p class="margin">If you need to stop a server locally press CTR-C in the command prompt window where the server has started. </p>
+        <p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>
