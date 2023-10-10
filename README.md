@@ -6,7 +6,9 @@ OpenSMUS is a server application that runs on Linux, Solaris, MacOSX, FreeBSD an
 
 ## Building
 
-You require maven
+You require maven!
+
+You can use the build script `build.sh` to compile everything nicely.
 
 ```
 mvn compile

@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/markhughes/opensmus/main/help/images/logo1_icone.gif)
+![OpenSMUS Logo](https://raw.githubusercontent.com/markhughes/opensmus/main/help/images/logo1_icone.gif)
 
 # OpenSMUS HELP
 
